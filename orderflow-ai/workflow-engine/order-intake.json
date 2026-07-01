@@ -1,0 +1,38 @@
+{
+  "name": "OrderFlow - Order Intake",
+  "nodes": [
+    {
+      "name": "Email or Upload Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "order-intake",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Extract Order",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/orders/extract"
+      }
+    },
+    {
+      "name": "Validate Order",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/orders/validate"
+      }
+    }
+  ],
+  "connections": {
+    "Email or Upload Trigger": {
+      "main": [[{"node": "Extract Order", "type": "main", "index": 0}]]
+    },
+    "Extract Order": {
+      "main": [[{"node": "Validate Order", "type": "main", "index": 0}]]
+    }
+  }
+}
+

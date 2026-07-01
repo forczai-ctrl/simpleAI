@@ -1,0 +1,307 @@
+{
+  "catalog": {
+    "SKU-COFFEE-12": {
+      "description": "Wholesale coffee cartons",
+      "active": true,
+      "contract_price": 48.0,
+      "available": 180,
+      "moq": 5
+    },
+    "SKU-TEA-24": {
+      "description": "Specialty tea trays",
+      "active": true,
+      "contract_price": 36.0,
+      "available": 80,
+      "moq": 4
+    },
+    "SKU-COLD-08": {
+      "description": "Cold brew cases",
+      "active": true,
+      "contract_price": 64.0,
+      "available": 22,
+      "moq": 2
+    },
+    "SKU-LEGACY-01": {
+      "description": "Discontinued sampler",
+      "active": false,
+      "contract_price": 20.0,
+      "available": 0,
+      "moq": 1
+    }
+  },
+  "customers": {
+    "Northstar Market": {
+      "tier": "gold",
+      "credit_limit": 25000.0,
+      "current_balance": 4200.0,
+      "service_regions": ["TX", "OK", "LA"]
+    },
+    "Bluebird Foods": {
+      "tier": "standard",
+      "credit_limit": 12000.0,
+      "current_balance": 9300.0,
+      "service_regions": ["TX", "NM"]
+    },
+    "Urban Pantry": {
+      "tier": "silver",
+      "credit_limit": 18000.0,
+      "current_balance": 7600.0,
+      "service_regions": ["CA", "NV", "AZ"]
+    }
+  },
+  "raw_order_template": "Purchase Order PO-1048\nCustomer: Northstar Market\nShip To Region: TX\nDelivery Date: 2026-07-05\nPayment Terms: NET 30\nItem SKU-COFFEE-12 Qty 18 Price 48.00\nItem SKU-TEA-24 Qty 10 Price 36.00",
+  "orders": [
+    {
+      "customer_name": "Northstar Market",
+      "po_number": "PO-1048",
+      "delivery_date": "2026-07-05",
+      "payment_terms": "NET 30",
+      "channel": "email_pdf",
+      "ship_to_region": "TX",
+      "customer_tier": "gold",
+      "credit_limit": 25000.0,
+      "current_balance": 4200.0,
+      "status": "validated",
+      "items": [
+        {
+          "sku": "SKU-COFFEE-12",
+          "description": "Wholesale coffee cartons",
+          "quantity": 18,
+          "unit_price": 48.0
+        },
+        {
+          "sku": "SKU-TEA-24",
+          "description": "Specialty tea trays",
+          "quantity": 10,
+          "unit_price": 36.0
+        }
+      ]
+    },
+    {
+      "customer_name": "Bluebird Foods",
+      "po_number": "PO-1049",
+      "delivery_date": "2026-07-02",
+      "payment_terms": "NET 15",
+      "channel": "web_portal",
+      "ship_to_region": "TX",
+      "customer_tier": "standard",
+      "credit_limit": 12000.0,
+      "current_balance": 9300.0,
+      "status": "scheduled",
+      "items": [
+        {
+          "sku": "SKU-COLD-08",
+          "description": "Cold brew cases",
+          "quantity": 12,
+          "unit_price": 64.0
+        }
+      ]
+    },
+    {
+      "customer_name": "Urban Pantry",
+      "po_number": "PO-1050",
+      "delivery_date": "2026-07-09",
+      "payment_terms": "NET 30",
+      "channel": "email_body",
+      "ship_to_region": "CA",
+      "customer_tier": "silver",
+      "credit_limit": 18000.0,
+      "current_balance": 7600.0,
+      "status": "invoiced",
+      "items": [
+        {
+          "sku": "SKU-TEA-24",
+          "description": "Specialty tea trays",
+          "quantity": 20,
+          "unit_price": 36.0
+        },
+        {
+          "sku": "SKU-COLD-08",
+          "description": "Cold brew cases",
+          "quantity": 6,
+          "unit_price": 64.0
+        }
+      ]
+    }
+  ],
+  "fulfillment": [
+    {
+      "order_id": "ord-1048",
+      "po_number": "PO-1048",
+      "customer_name": "Northstar Market",
+      "stage": "pending",
+      "owner": "Ops Team A",
+      "committed_date": "2026-07-05",
+      "risk": "low"
+    },
+    {
+      "order_id": "ord-1049",
+      "po_number": "PO-1049",
+      "customer_name": "Bluebird Foods",
+      "stage": "in_progress",
+      "owner": "Ops Team B",
+      "committed_date": "2026-07-02",
+      "risk": "medium"
+    },
+    {
+      "order_id": "ord-1050",
+      "po_number": "PO-1050",
+      "customer_name": "Urban Pantry",
+      "stage": "completed",
+      "owner": "Ops Team A",
+      "committed_date": "2026-07-09",
+      "risk": "low"
+    }
+  ],
+  "invoices": [
+    {
+      "invoice_no": "INV-1001",
+      "po_number": "PO-1050",
+      "customer_name": "Urban Pantry",
+      "invoice_date": "2026-06-27",
+      "due_date": "2026-07-27",
+      "subtotal": 1104.0,
+      "tax": 91.08,
+      "total": 1195.08,
+      "status": "sent",
+      "lines": [
+        {
+          "sku": "SKU-TEA-24",
+          "description": "Specialty tea trays",
+          "quantity": 20,
+          "unit_price": 36.0,
+          "amount": 720.0
+        },
+        {
+          "sku": "SKU-COLD-08",
+          "description": "Cold brew cases",
+          "quantity": 6,
+          "unit_price": 64.0,
+          "amount": 384.0
+        }
+      ]
+    },
+    {
+      "invoice_no": "INV-1002",
+      "po_number": "PO-1038",
+      "customer_name": "Northstar Market",
+      "invoice_date": "2026-05-22",
+      "due_date": "2026-06-21",
+      "subtotal": 2400.0,
+      "tax": 198.0,
+      "total": 2598.0,
+      "status": "overdue",
+      "lines": [
+        {
+          "sku": "SKU-COFFEE-12",
+          "description": "Wholesale coffee cartons",
+          "quantity": 50,
+          "unit_price": 48.0,
+          "amount": 2400.0
+        }
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "payment_id": "PAY-7001",
+      "customer_name": "Urban Pantry",
+      "amount": 1195.08,
+      "received_date": "2026-06-29",
+      "reference": "INV-1001"
+    },
+    {
+      "payment_id": "PAY-7002",
+      "customer_name": "Northstar Market",
+      "amount": 1299.0,
+      "received_date": "2026-06-28",
+      "reference": "partial PO-1038"
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "EXC-101",
+      "type": "Inventory shortage",
+      "severity": "medium",
+      "owner": "Ops Team B",
+      "status": "open",
+      "detail": "SKU-COLD-08 is below reorder point after PO-1049.",
+      "order_id": "PO-1049",
+      "invoice_id": null
+    },
+    {
+      "id": "EXC-102",
+      "type": "Payment overdue",
+      "severity": "high",
+      "owner": "Finance",
+      "status": "open",
+      "detail": "INV-1002 is 8 days past due with a partial payment.",
+      "order_id": "PO-1038",
+      "invoice_id": "INV-1002"
+    }
+  ],
+  "vendors": [
+    {
+      "id": "VND-201",
+      "name": "Apex Coffee Importers",
+      "contact": "Sarah Jenkins (sarah@apeximports.com)",
+      "rating": 4.8,
+      "status": "active",
+      "category": "Raw Beans & Roasts",
+      "active_pos": 2
+    },
+    {
+      "id": "VND-202",
+      "name": "Continental Packaging Co.",
+      "contact": "Michael Chang (mchang@contipack.com)",
+      "rating": 4.5,
+      "status": "active",
+      "category": "Cartons & Cups",
+      "active_pos": 1
+    },
+    {
+      "id": "VND-203",
+      "name": "Sierra Tea Growers",
+      "contact": "Elena Rostova (orders@sierratea.co)",
+      "rating": 4.9,
+      "status": "preferred",
+      "category": "Herbal & Specialty Tea",
+      "active_pos": 0
+    },
+    {
+      "id": "VND-204",
+      "name": "Logistics & Freight Express",
+      "contact": "David Miller (d.miller@freightex.net)",
+      "rating": 3.9,
+      "status": "conditional",
+      "category": "Shipping & Route Logistics",
+      "active_pos": 4
+    }
+  ],
+  "use_cases": [
+    {"id": "UC-01", "name": "Multi-Format Order Intake", "phase": "1", "status": "implemented"},
+    {"id": "UC-02", "name": "Automated Order Validation", "phase": "2", "status": "implemented"},
+    {"id": "UC-03", "name": "Order Prioritization", "phase": "2", "status": "implemented"},
+    {"id": "UC-04", "name": "Inventory and Availability Check", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-05", "name": "Order Acknowledgment", "phase": "1", "status": "implemented"},
+    {"id": "UC-06", "name": "Fulfillment Scheduling", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-07", "name": "Vendor PO Generation", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-08", "name": "Fulfillment Status Tracking", "phase": "1", "status": "implemented"},
+    {"id": "UC-09", "name": "QC Documentation", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-10", "name": "Route Optimization", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-11", "name": "Invoice Generation", "phase": "1", "status": "implemented"},
+    {"id": "UC-12", "name": "Invoice Validation", "phase": "1", "status": "implemented"},
+    {"id": "UC-13", "name": "Variable Billing", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-14", "name": "Recurring Billing", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-15", "name": "Tax Compliance", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-16", "name": "Payment Matching", "phase": "1", "status": "implemented"},
+    {"id": "UC-17", "name": "AR Collections Follow-Up", "phase": "1", "status": "implemented"},
+    {"id": "UC-18", "name": "Payment Failure Retry", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-19", "name": "Credit and Refund Processing", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-20", "name": "Billing Dispute Triage", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-21", "name": "Fulfillment Exception Alert", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-22", "name": "Financial Close Automation", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-23", "name": "Operations Dashboard", "phase": "3", "status": "implemented"},
+    {"id": "UC-24", "name": "Revenue Recognition", "phase": "3", "status": "scaffolded"}
+  ]
+}

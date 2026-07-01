@@ -1,0 +1,32 @@
+{
+  "name": "OrderFlow - Collections",
+  "nodes": [
+    {
+      "name": "Daily AR Aging Trigger",
+      "type": "n8n-nodes-base.cron",
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Generate Reminder",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/collections/remind"
+      }
+    }
+  ],
+  "connections": {
+    "Daily AR Aging Trigger": {
+      "main": [[{"node": "Generate Reminder", "type": "main", "index": 0}]]
+    }
+  }
+}
+

@@ -1,0 +1,95 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://orderflow:orderflow@postgres:5432/orderflow
+      REDIS_URL: redis://redis:6379/0
+      OLLAMA_BASE_URL: http://ollama:11434
+      CHROMA_HOST: chroma
+      MINIO_ENDPOINT: minio:9000
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: orderflow
+      POSTGRES_USER: orderflow
+      POSTGRES_PASSWORD: orderflow
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/app/database/schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+
+  redis:
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: orderflow
+      MINIO_ROOT_PASSWORD: orderflow123
+    volumes:
+      - minio-data:/data
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      WEBHOOK_URL: http://localhost:5678/
+    volumes:
+      - n8n-data:/home/node/.n8n
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+volumes:
+  postgres-data:
+  chroma-data:
+  minio-data:
+  ollama-data:
+  n8n-data:
+

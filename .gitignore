@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+ENV/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.oxlintrc.json
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.staging
+
+# Log Files
+*.log
+*.err
+logs/
+log/

@@ -1,0 +1,38 @@
+{
+  "name": "OrderFlow - Invoice Generation",
+  "nodes": [
+    {
+      "name": "Fulfillment Completed",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "fulfillment-completed",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Generate Invoice",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/invoice/generate"
+      }
+    },
+    {
+      "name": "Validate Invoice",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/invoice/validate"
+      }
+    }
+  ],
+  "connections": {
+    "Fulfillment Completed": {
+      "main": [[{"node": "Generate Invoice", "type": "main", "index": 0}]]
+    },
+    "Generate Invoice": {
+      "main": [[{"node": "Validate Invoice", "type": "main", "index": 0}]]
+    }
+  }
+}
+

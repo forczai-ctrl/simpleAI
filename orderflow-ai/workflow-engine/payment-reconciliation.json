@@ -1,0 +1,27 @@
+{
+  "name": "OrderFlow - Payment Reconciliation",
+  "nodes": [
+    {
+      "name": "Payment Received",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "path": "payment-received",
+        "httpMethod": "POST"
+      }
+    },
+    {
+      "name": "Reconcile Payment",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "http://backend:8000/api/payment/reconcile"
+      }
+    }
+  ],
+  "connections": {
+    "Payment Received": {
+      "main": [[{"node": "Reconcile Payment", "type": "main", "index": 0}]]
+    }
+  }
+}
+
