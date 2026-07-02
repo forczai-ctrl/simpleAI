@@ -1,4 +1,4 @@
-import AutoRenewRoundedIcon from '@mui/icons-material/AutoRenewRounded'
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded'
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import NotificationImportantRoundedIcon from '@mui/icons-material/NotificationImportantRounded'
@@ -60,7 +60,7 @@ export function ExceptionManagement() {
             Monitor, prioritize, and dismiss automated O2C validation or billing warnings
           </Typography>
         </Box>
-        <Button startIcon={<AutoRenewRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
+        <Button startIcon={<RefreshRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
           Refresh Issues
         </Button>
       </Box>

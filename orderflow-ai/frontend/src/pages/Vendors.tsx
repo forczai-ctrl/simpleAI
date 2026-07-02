@@ -1,4 +1,4 @@
-import AutoRenewRoundedIcon from '@mui/icons-material/AutoRenewRounded'
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded'
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
@@ -58,7 +58,7 @@ export function Vendors() {
             Manage contract catalogs, track supplier SLAs, and trigger raw material procurement
           </Typography>
         </Box>
-        <Button startIcon={<AutoRenewRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
+        <Button startIcon={<RefreshRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
           Refresh Directory
         </Button>
       </Box>

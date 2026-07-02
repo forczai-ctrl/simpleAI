@@ -1,4 +1,4 @@
-import AutoRenewRoundedIcon from '@mui/icons-material/AutoRenewRounded'
+import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded'
 import Inventory2RoundedIcon from '@mui/icons-material/Inventory2Rounded'
 import ShowChartRoundedIcon from '@mui/icons-material/ShowChartRounded'
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded'
@@ -78,7 +78,7 @@ export function Inventory() {
             Warehouse catalog levels, stock thresholds, and suppliers replenishment triggers
           </Typography>
         </Box>
-        <Button startIcon={<AutoRenewRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
+        <Button startIcon={<RefreshRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
           Refresh Stock
         </Button>
       </Box>
