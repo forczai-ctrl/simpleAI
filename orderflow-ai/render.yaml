@@ -18,7 +18,6 @@ services:
   - type: web
     name: orderflow-ai-frontend
     runtime: static
-    region: oregon
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
