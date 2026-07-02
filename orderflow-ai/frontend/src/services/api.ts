@@ -11,8 +11,9 @@ import type {
   ExceptionItem,
 } from '../types'
 
-// Always use relative path (Vite proxy handles forwarding to backend)
-const API_BASE_URL = ''
+// In development, Vite proxy handles forwarding to backend (empty string = relative path)
+// In production (Render), use the VITE_API_BASE_URL env var pointing to the backend
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
 export const sampleRawOrder = `Purchase Order PO-2001
 Customer: Northstar Market

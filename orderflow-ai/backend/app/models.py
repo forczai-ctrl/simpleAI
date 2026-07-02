@@ -168,7 +168,7 @@ class DashboardResponse(BaseModel):
     fulfillment: list[FulfillmentTask]
     invoices: list[Invoice]
     payments: list[Payment]
-    exceptions: list[dict[str, str]]
+    exceptions: list[dict[str, str | None]]
 
 
 class PipelineRun(BaseModel):
