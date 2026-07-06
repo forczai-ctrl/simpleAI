@@ -1,0 +1,18 @@
+{
+  "gmail_email": "pulimuruganit@gmail.com",
+  "gmail_app_password": "vden lzud wrew yzvy",
+  "gmail_smtp_host": "smtp.gmail.com",
+  "gmail_smtp_port": 465,
+  "erp_system": "ALO (Zoho ERP)",
+  "erp_host_url": "https://erp.company.com/api",
+  "erp_client_id": "client_id_placeholder",
+  "erp_client_secret": "client_secret_placeholder",
+  "erp_sync_active": true,
+  "zoho_erp": {
+    "client_id": "client_id_placeholder",
+    "client_secret": "client_secret_placeholder",
+    "refresh_token": "",
+    "organization_id": "",
+    "region": "com"
+  }
+}

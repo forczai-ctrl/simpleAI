@@ -15,5 +15,18 @@ class FulfillmentAgent:
             owner=owner,
             committed_date=order.delivery_date,
             risk=risk,
+            qc_passed=False,
+            optimized_route="Standard Ground Route"
         )
+
+    def optimize_route(self, task: FulfillmentTask) -> str:
+        # Simulate dispatch mapping calculations
+        return "Optimized via GPS Matrix (Shortest Path)"
+
+    def generate_qc_document(self, task: FulfillmentTask) -> dict:
+        return {
+            "qc_inspector": "System Agent A",
+            "passed": True,
+            "checklist": ["Quantity verified", "Product SKU matches", "Packaging intact"]
+        }
 

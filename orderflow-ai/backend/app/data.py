@@ -59,6 +59,8 @@ for f in db_data["fulfillment"]:
             owner=f["owner"],
             committed_date=date.fromisoformat(f["committed_date"]),
             risk=f["risk"],
+            qc_passed=f.get("qc_passed", True),
+            optimized_route=f.get("optimized_route", "Standard Ground Route"),
         )
     )
 
@@ -86,6 +88,8 @@ for inv in db_data["invoices"]:
             total=inv["total"],
             status=inv["status"],
             lines=lines,
+            billing_type=inv.get("billing_type", "one_time"),
+            disputed=inv.get("disputed", False),
         )
     )
 
@@ -99,6 +103,7 @@ for p in db_data["payments"]:
             amount=p["amount"],
             received_date=date.fromisoformat(p["received_date"]),
             reference=p["reference"],
+            status=p.get("status", "succeeded"),
         )
     )
 

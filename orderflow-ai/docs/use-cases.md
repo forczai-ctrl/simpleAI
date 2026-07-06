@@ -7,27 +7,27 @@ The supplied PDF defines 24 backend operations lifecycle use cases from order in
 | UC-01 | Multi-format order intake and extraction | Implemented |
 | UC-02 | Automated order validation | Implemented |
 | UC-03 | Intelligent order prioritization | Implemented |
-| UC-04 | Inventory and availability check | Validation scaffold |
+| UC-04 | Inventory and availability check | Implemented |
 | UC-05 | Order acknowledgment | Implemented |
-| UC-06 | Fulfillment scheduling | Basic scheduling scaffold |
-| UC-07 | Vendor PO generation | Workflow placeholder |
-| UC-08 | Fulfillment status tracking | Implemented dashboard data |
-| UC-09 | QC documentation | Future extension |
-| UC-10 | Route optimization | Future extension |
+| UC-06 | Fulfillment scheduling | Implemented |
+| UC-07 | Vendor PO generation | Implemented |
+| UC-08 | Fulfillment status tracking | Implemented |
+| UC-09 | QC documentation | Implemented |
+| UC-10 | Route optimization | Implemented |
 | UC-11 | Invoice generation | Implemented |
 | UC-12 | Invoice validation | Implemented |
-| UC-13 | Variable billing calculation | Future extension |
-| UC-14 | Recurring billing | Future extension |
-| UC-15 | Tax compliance | Invoice tax placeholder |
+| UC-13 | Variable billing calculation | Implemented |
+| UC-14 | Recurring billing | Implemented |
+| UC-15 | Tax compliance | Implemented |
 | UC-16 | Payment matching | Implemented |
 | UC-17 | AR collections follow-up | Implemented |
-| UC-18 | Payment failure retry | Future extension |
-| UC-19 | Credit and refund processing | Future extension |
-| UC-20 | Billing dispute triage | Future extension |
-| UC-21 | Fulfillment exception alerting | Exception data scaffold |
-| UC-22 | Financial close automation | Future extension |
+| UC-18 | Payment failure retry | Implemented |
+| UC-19 | Credit and refund processing | Implemented |
+| UC-20 | Billing dispute triage | Implemented |
+| UC-21 | Fulfillment exception alerting | Implemented |
+| UC-22 | Financial close automation | Implemented |
 | UC-23 | Operations dashboard | Implemented |
-| UC-24 | Revenue recognition | Future extension |
+| UC-24 | Revenue recognition | Implemented |
 
 ## Phase 1 Flow
 

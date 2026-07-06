@@ -42,3 +42,13 @@ class PaymentReconciliationAgent:
             notes=["No invoice reference or exact customer amount match found."],
         )
 
+    def retry_failed_payment(self, payment: Payment) -> tuple[bool, str]:
+        # UC-18 Payment failure retry logic simulation
+        if payment.amount > 10000.0:
+            return False, "Gateway rejected: Insufficient credit limit on buyer account."
+        return True, "Gateway approved: Transaction settled successfully."
+
+    def process_refund(self, payment: Payment) -> str:
+        # UC-19 Refund transaction simulation
+        return f"Credit note generated. Refund of ${payment.amount:,.2f} returned to original payment method."
+

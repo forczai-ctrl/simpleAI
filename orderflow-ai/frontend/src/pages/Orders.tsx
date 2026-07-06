@@ -3,12 +3,16 @@ import AutoFixHighRoundedIcon from '@mui/icons-material/AutoFixHighRounded'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import SendRoundedIcon from '@mui/icons-material/SendRounded'
 import ShoppingBagRoundedIcon from '@mui/icons-material/ShoppingBagRounded'
-import { Box, Button, Chip, Divider, Drawer, Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
+import SyncRoundedIcon from '@mui/icons-material/SyncRounded'
+import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded'
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
+import { Box, Button, Chip, Divider, Drawer, Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Alert } from '@mui/material'
 import { useState } from 'react'
 import { SectionHeader } from '../components/SectionHeader'
 import { StatusChip } from '../components/StatusChip'
 import { currency, orderTotal } from '../services/format'
 import type { Order, PipelineRun } from '../types'
+import { sendOrderAckEmail, sendOrderRegistryEmail } from '../services/api'
 
 type Props = {
   orders: Order[]
@@ -17,11 +21,18 @@ type Props = {
   loading: boolean
   onRawTextChange: (value: string) => void
   onRunPipeline: () => void
+  onSyncGmailOrders: () => void
+  onUploadFile: (file: File) => Promise<void>
 }
 
-export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, onRunPipeline }: Props) {
+export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, onRunPipeline, onSyncGmailOrders, onUploadFile }: Props) {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(orders[0] || null)
   const [intakeDrawerOpen, setIntakeDrawerOpen] = useState(false)
+  const [ackEmailDialogOpen, setAckEmailDialogOpen] = useState(false)
+  const [registryEmailDialogOpen, setRegistryEmailDialogOpen] = useState(false)
+  const [customerEmail, setCustomerEmail] = useState('')
+  const [emailStatus, setEmailStatus] = useState<string | null>(null)
+  const [sendingEmail, setSendingEmail] = useState(false)
 
   const handleSelectOrder = (order: Order) => {
     setSelectedOrder(order)
@@ -30,6 +41,61 @@ export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, on
   const handleRunIntake = async () => {
     await onRunPipeline()
     setIntakeDrawerOpen(false)
+  }
+
+  async function handleSendOrderAck() {
+    if (!displayOrder || !customerEmail) return
+    setSendingEmail(true)
+    setEmailStatus(null)
+    try {
+      const res = await sendOrderAckEmail({
+        customer_email: customerEmail,
+        customer_name: displayOrder.customer_name,
+        po_number: displayOrder.po_number,
+        items: displayOrder.items.map(i => ({
+          sku: i.sku,
+          description: i.description,
+          quantity: i.quantity,
+          unit_price: i.unit_price,
+        })),
+        delivery_date: displayOrder.delivery_date,
+        payment_terms: displayOrder.payment_terms,
+        total_amount: displayOrder.total_amount ?? displayOrder.items.reduce((s, i) => s + i.quantity * i.unit_price, 0),
+      })
+      setEmailStatus(res.status === 'sent' ? 'Acknowledgement sent!' : `Status: ${res.message}`)
+      if (res.status === 'sent' || res.status === 'skipped') {
+        setTimeout(() => { setAckEmailDialogOpen(false); setEmailStatus(null) }, 1500)
+      }
+    } catch (err: any) {
+      setEmailStatus(`Error: ${err.message || err}`)
+    } finally {
+      setSendingEmail(false)
+    }
+  }
+
+  async function handleSendRegistryNotification() {
+    if (!displayOrder || !customerEmail) return
+    setSendingEmail(true)
+    setEmailStatus(null)
+    try {
+      const total = displayOrder.total_amount ?? displayOrder.items.reduce((s, i) => s + i.quantity * i.unit_price, 0)
+      const res = await sendOrderRegistryEmail({
+        customer_email: customerEmail,
+        customer_name: displayOrder.customer_name,
+        po_number: displayOrder.po_number,
+        status: displayOrder.status,
+        total_amount: total,
+        item_count: displayOrder.items.length,
+      })
+      setEmailStatus(res.status === 'sent' ? 'Notification sent!' : `Status: ${res.message}`)
+      if (res.status === 'sent' || res.status === 'skipped') {
+        setTimeout(() => { setRegistryEmailDialogOpen(false); setEmailStatus(null) }, 1500)
+      }
+    } catch (err: any) {
+      setEmailStatus(`Error: ${err.message || err}`)
+    } finally {
+      setSendingEmail(false)
+    }
   }
 
   // Update selected order if pipeline changes
@@ -48,14 +114,25 @@ export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, on
             Process, extract, and prioritize incoming customer purchase orders
           </Typography>
         </Box>
-        <Button
-          startIcon={<AddRoundedIcon />}
-          variant="contained"
-          onClick={() => setIntakeDrawerOpen(true)}
-          sx={{ py: 1, px: 2.25, borderRadius: 2 }}
-        >
-          AI Order Intake
-        </Button>
+        <Stack direction="row" spacing={1.5}>
+          <Button
+            startIcon={<SyncRoundedIcon />}
+            variant="outlined"
+            onClick={onSyncGmailOrders}
+            disabled={loading}
+            sx={{ py: 1, px: 2, borderRadius: 2 }}
+          >
+            Sync Gmail Orders
+          </Button>
+          <Button
+            startIcon={<AddRoundedIcon />}
+            variant="contained"
+            onClick={() => setIntakeDrawerOpen(true)}
+            sx={{ py: 1, px: 2.25, borderRadius: 2 }}
+          >
+            AI Order Intake
+          </Button>
+        </Stack>
       </Box>
 
       <Grid container spacing={2.5}>
@@ -201,6 +278,32 @@ export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, on
                   </TableBody>
                 </Table>
 
+                {/* Email Notification Buttons */}
+                <Stack direction="row" spacing={1.5}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    startIcon={<EmailRoundedIcon />}
+                    onClick={() => {
+                      setCustomerEmail(`orders@${displayOrder.customer_name.toLowerCase().replace(/\s+/g, '')}.com`)
+                      setAckEmailDialogOpen(true)
+                    }}
+                  >
+                    Send Order Ack
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<EmailRoundedIcon />}
+                    onClick={() => {
+                      setCustomerEmail(`ops@${displayOrder.customer_name.toLowerCase().replace(/\s+/g, '')}.com`)
+                      setRegistryEmailDialogOpen(true)
+                    }}
+                  >
+                    Registry Notify
+                  </Button>
+                </Stack>
+
                 {/* Acknowledgement Preview if from pipeline */}
                 {pipeline && pipeline.extraction.po_number === displayOrder.po_number && (
                   <Box sx={{ p: 1.6, borderRadius: 2, bgcolor: 'rgba(36,95,90,0.08)', border: '1px solid rgba(36,95,90,0.18)' }}>
@@ -220,6 +323,66 @@ export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, on
           </Grid>
         )}
       </Grid>
+
+      {/* Send Order Acknowledgement Email Dialog */}
+      <Dialog open={ackEmailDialogOpen} onClose={() => { setAckEmailDialogOpen(false); setEmailStatus(null) }} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ fontWeight: 800 }}>Send Order Acknowledgement</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              Send order acknowledgement for <strong>{displayOrder?.po_number}</strong> to the customer.
+            </Typography>
+            <TextField
+              fullWidth
+              label="Customer Email Address"
+              type="email"
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+            />
+            {emailStatus && (
+              <Alert severity={emailStatus.includes('Error') ? 'error' : 'success'} sx={{ borderRadius: 2 }}>
+                {emailStatus}
+              </Alert>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ p: 2.25 }}>
+          <Button onClick={() => { setAckEmailDialogOpen(false); setEmailStatus(null) }}>Cancel</Button>
+          <Button onClick={handleSendOrderAck} variant="contained" disabled={sendingEmail || !customerEmail}>
+            {sendingEmail ? 'Sending...' : 'Send Acknowledgement'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Send Order Registry Notification Email Dialog */}
+      <Dialog open={registryEmailDialogOpen} onClose={() => { setRegistryEmailDialogOpen(false); setEmailStatus(null) }} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ fontWeight: 800 }}>Send Order Registry Notification</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              Send registry notification for <strong>{displayOrder?.po_number}</strong> to the operations team.
+            </Typography>
+            <TextField
+              fullWidth
+              label="Recipient Email Address"
+              type="email"
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+            />
+            {emailStatus && (
+              <Alert severity={emailStatus.includes('Error') ? 'error' : 'success'} sx={{ borderRadius: 2 }}>
+                {emailStatus}
+              </Alert>
+            )}
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ p: 2.25 }}>
+          <Button onClick={() => { setRegistryEmailDialogOpen(false); setEmailStatus(null) }}>Cancel</Button>
+          <Button onClick={handleSendRegistryNotification} variant="contained" disabled={sendingEmail || !customerEmail}>
+            {sendingEmail ? 'Sending...' : 'Send Notification'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* AI Extraction Drawer */}
       <Drawer
@@ -241,8 +404,39 @@ export function Orders({ orders, rawText, pipeline, loading, onRawTextChange, on
               </Button>
             </Box>
             <Typography variant="body2" color="text.secondary">
-              Paste raw text (e.g. Email threads, PDF copy, transcoded voice notes, or standard PO layouts) to extract structured fields using the AI Order Intake Agent.
+              Upload files or paste text representing purchase orders to run the O2C automation pipeline.
             </Typography>
+
+            <Box sx={{ p: 2, border: '2px dashed rgba(36,95,90,0.3)', borderRadius: 2, textAlign: 'center', bgcolor: 'rgba(36,95,90,0.02)' }}>
+              <UploadFileRoundedIcon sx={{ fontSize: 32, color: 'primary.main', mb: 0.5 }} />
+              <Typography variant="body2" sx={{ mb: 1.5, fontWeight: 600 }}>
+                Upload PO Document (PDF, Excel, CSV)
+              </Typography>
+              <Button
+                variant="outlined"
+                component="label"
+                size="small"
+                disabled={loading}
+              >
+                Choose File
+                <input
+                  type="file"
+                  hidden
+                  accept=".pdf,.xlsx,.xls,.csv,.txt"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                      await onUploadFile(file)
+                      setIntakeDrawerOpen(false)
+                    }
+                  }}
+                />
+              </Button>
+            </Box>
+
+            <Divider>
+              <Typography variant="caption" color="text.secondary">OR PASTE TEXT</Typography>
+            </Divider>
 
             <TextField
               multiline

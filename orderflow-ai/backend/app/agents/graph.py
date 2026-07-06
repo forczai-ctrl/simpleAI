@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..models import ExtractionRequest, PipelineRun
+from app.models import ExtractionRequest, PipelineRun
 from .communications import CommunicationAgent
 from .intake import OrderIntakeAgent
 from .invoice import InvoiceAgent

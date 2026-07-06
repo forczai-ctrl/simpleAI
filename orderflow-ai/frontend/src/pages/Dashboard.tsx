@@ -86,7 +86,7 @@ export function Dashboard({ dashboard, onNavigate }: Props) {
                 <LinearProgress variant="determinate" value={72} sx={{ height: 9, borderRadius: 5 }} />
               </Box>
               {dashboard.exceptions.map((exception) => (
-                <Box key={`${exception.type}-${exception.owner}`} sx={{ p: 1.4, borderRadius: 2, bgcolor: 'rgba(184,121,25,0.08)', border: '1px solid rgba(184,121,25,0.22)' }}>
+                <Box key={`${exception.type}-${exception.detail}`} sx={{ p: 1.4, borderRadius: 2, bgcolor: 'rgba(184,121,25,0.08)', border: '1px solid rgba(184,121,25,0.22)' }}>
                   <Stack direction="row" spacing={1} sx={{ mb: 0.75, alignItems: 'center' }}>
                     <StatusChip value={exception.severity} />
                     <Typography sx={{ fontWeight: 760 }}>{exception.type}</Typography>

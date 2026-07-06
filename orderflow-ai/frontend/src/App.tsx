@@ -13,7 +13,9 @@ import { Inventory } from './pages/Inventory'
 import { Vendors } from './pages/Vendors'
 import { ExceptionManagement } from './pages/ExceptionManagement'
 import { Authentication } from './pages/Authentication'
-import { generateReminder, getDashboard, getUseCases, reconcilePayment, runPipeline, sampleRawOrder } from './services/api'
+import { CustomerPortal } from './pages/CustomerPortal'
+import { ErpConsole } from './pages/ErpConsole'
+import { generateReminder, getDashboard, getUseCases, reconcilePayment, runPipeline, sampleRawOrder, syncGmailOrders, uploadPipelineFile, updateFulfillment } from './services/api'
 import type { CollectionReminder, DashboardResponse, PipelineRun, ReconciliationResult, UseCase, Invoice, FulfillmentTask, Payment } from './types'
 
 function App() {
@@ -75,6 +77,53 @@ function App() {
     }
   }
 
+  async function handleSyncGmailOrders() {
+    setLoading(true)
+    try {
+      const res = await syncGmailOrders()
+      setNotice(res.message)
+      const updatedDashboard = await getDashboard()
+      setDashboard(updatedDashboard)
+    } catch (err: any) {
+      setNotice(`Gmail sync error: ${err.message || err}`)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleUploadPipelineFile(file: File) {
+    setLoading(true)
+    try {
+      const result = await uploadPipelineFile(file)
+      setPipeline(result)
+      
+      if (dashboard) {
+        setDashboard({
+          ...dashboard,
+          orders: [result.extraction, ...dashboard.orders],
+          invoices: [result.invoice, ...dashboard.invoices],
+          fulfillment: [
+            {
+              order_id: `ord-${result.extraction.po_number}`,
+              po_number: result.extraction.po_number,
+              customer_name: result.extraction.customer_name,
+              stage: 'pending',
+              owner: 'Ops Team A',
+              committed_date: result.extraction.delivery_date,
+              risk: 'low',
+            },
+            ...dashboard.fulfillment,
+          ]
+        })
+      }
+      setNotice(`File successfully parsed and ingested into pipeline!`)
+    } catch (err: any) {
+      setNotice(`File upload error: ${err.message || err}`)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   async function handleReconcile(payment: Payment) {
     const result = await reconcilePayment(payment)
     setReconciliation(result)
@@ -87,16 +136,15 @@ function App() {
     setNotice(`Collections reminder generated for invoice ${invoice.invoice_no}.`)
   }
 
-  function handleUpdateFulfillment(updatedTask: FulfillmentTask) {
-    if (!dashboard) return
-    const newFulfillment = dashboard.fulfillment.map((t) =>
-      t.order_id === updatedTask.order_id ? updatedTask : t
-    )
-    setDashboard({
-      ...dashboard,
-      fulfillment: newFulfillment,
-    })
-    setNotice(`Fulfillment board updated for PO ${updatedTask.po_number}.`)
+  async function handleUpdateFulfillment(updatedTask: FulfillmentTask) {
+    try {
+      await updateFulfillment(updatedTask)
+      const data = await getDashboard()
+      setDashboard(data)
+      setNotice(`Fulfillment task successfully synchronized with ERP.`)
+    } catch (err: any) {
+      setNotice(`Fulfillment sync error: ${err.message || err}`)
+    }
   }
 
   function handleUpdateInvoice(updatedInvoice: Invoice) {
@@ -138,19 +186,51 @@ function App() {
           pipeline={pipeline} 
           loading={loading} 
           onRawTextChange={setRawText} 
-          onRunPipeline={handleRunPipeline} 
+          onRunPipeline={handleRunPipeline}
+          onSyncGmailOrders={handleSyncGmailOrders}
+          onUploadFile={handleUploadPipelineFile}
         />
       ) : null}
       {activePage === 'validation' ? <Validation pipeline={pipeline} /> : null}
       {activePage === 'fulfillment' ? <Fulfillment dashboard={dashboard} onUpdateFulfillment={handleUpdateFulfillment} /> : null}
       {activePage === 'inventory' ? <Inventory /> : null}
       {activePage === 'vendors' ? <Vendors /> : null}
-      {activePage === 'invoices' ? <Invoices dashboard={dashboard} pipeline={pipeline} onUpdateInvoice={handleUpdateInvoice} /> : null}
-      {activePage === 'payments' ? <Payments dashboard={dashboard} reconciliation={reconciliation} onReconcile={handleReconcile} /> : null}
+      {activePage === 'invoices' ? (
+        <Invoices 
+          dashboard={dashboard} 
+          pipeline={pipeline} 
+          onUpdateInvoice={handleUpdateInvoice} 
+          onRefresh={async () => {
+            const data = await getDashboard()
+            setDashboard(data)
+          }}
+        />
+      ) : null}
+      {activePage === 'payments' ? (
+        <Payments 
+          dashboard={dashboard} 
+          reconciliation={reconciliation} 
+          onReconcile={handleReconcile}
+          onRefresh={async () => {
+            const data = await getDashboard()
+            setDashboard(data)
+          }}
+        />
+      ) : null}
       {activePage === 'collections' ? <Collections dashboard={dashboard} reminder={reminder} onGenerateReminder={handleReminder} /> : null}
       {activePage === 'reports' ? <Reports useCases={useCases} /> : null}
       {activePage === 'exceptions' ? <ExceptionManagement /> : null}
       {activePage === 'auth' ? <Authentication /> : null}
+      {activePage === 'customer_portal' ? <CustomerPortal /> : null}
+      {activePage === 'erp_integration' ? (
+        <ErpConsole 
+          dashboard={dashboard} 
+          onRefresh={async () => {
+            const data = await getDashboard()
+            setDashboard(data)
+          }} 
+        />
+      ) : null}
       
       <Snackbar open={Boolean(notice)} autoHideDuration={3200} onClose={() => setNotice(null)}>
         <Alert severity={notice?.includes('error') || notice?.includes('Failed') ? 'error' : 'success'} variant="filled" onClose={() => setNotice(null)}>

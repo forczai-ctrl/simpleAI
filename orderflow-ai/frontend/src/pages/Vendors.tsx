@@ -3,10 +3,11 @@ import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded'
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded'
-import { Alert, Box, Button, Card, CardContent, Chip, Grid, Paper, Rating, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import { Alert, Box, Button, Card, CardContent, Chip, Grid, Paper, Rating, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { SectionHeader } from '../components/SectionHeader'
-import { getVendors, procureVendor } from '../services/api'
+import { getVendors, procureVendor, addVendor } from '../services/api'
 import type { Vendor } from '../types'
 
 export function Vendors() {
@@ -14,6 +15,18 @@ export function Vendors() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
+  
+  // Add vendor dialog state
+  const [openDialog, setOpenDialog] = useState(false)
+  const [newVendor, setNewVendor] = useState({
+    id: '',
+    name: '',
+    category: '',
+    contact: '',
+    status: 'active',
+    rating: 4.5,
+    active_pos: 0
+  })
 
   const loadData = async () => {
     setLoading(true)
@@ -47,6 +60,45 @@ export function Vendors() {
     }
   }
 
+  const handleOpenDialog = () => {
+    const nextIdNum = vendors.length + 1
+    setNewVendor({
+      id: `VND-00${nextIdNum}`,
+      name: '',
+      category: 'Ingredients',
+      contact: '',
+      status: 'active',
+      rating: 4.5,
+      active_pos: 0
+    })
+    setOpenDialog(true)
+  }
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+  }
+
+  const handleSaveVendor = async () => {
+    if (!newVendor.id || !newVendor.name || !newVendor.contact) {
+      setError('Please fill in all required vendor fields.')
+      return
+    }
+    
+    setLoading(true)
+    setError(null)
+    try {
+      await addVendor(newVendor)
+      setSuccessMsg(`Vendor ${newVendor.name} successfully registered.`)
+      setOpenDialog(false)
+      loadData()
+      setTimeout(() => setSuccessMsg(null), 3500)
+    } catch (err: any) {
+      setError(err.message || 'Failed to add vendor.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Stack spacing={3}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -58,9 +110,14 @@ export function Vendors() {
             Manage contract catalogs, track supplier SLAs, and trigger raw material procurement
           </Typography>
         </Box>
-        <Button startIcon={<RefreshRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
-          Refresh Directory
-        </Button>
+        <Stack direction="row" spacing={1.5}>
+          <Button startIcon={<RefreshRoundedIcon />} onClick={loadData} disabled={loading} variant="outlined">
+            Refresh Directory
+          </Button>
+          <Button startIcon={<AddRoundedIcon />} onClick={handleOpenDialog} variant="contained">
+            Add Vendor
+          </Button>
+        </Stack>
       </Box>
 
       {/* Overview Cards */}
@@ -121,7 +178,7 @@ export function Vendors() {
       </Grid>
 
       {successMsg && <Alert severity="success">{successMsg}</Alert>}
-      {error && <Alert severity="error">{error}</Alert>}
+      {error && <Alert severity="error" onClose={() => setError(null)}>{error}</Alert>}
 
       <Paper sx={{ p: 2.25 }}>
         <SectionHeader title="Active Supplier Contracts" />
@@ -199,6 +256,89 @@ export function Vendors() {
           </Table>
         </TableContainer>
       </Paper>
+
+      {/* Add Vendor Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ fontWeight: 800 }}>Register New Vendor</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2.5} sx={{ mt: 1 }}>
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 4 }}>
+                <TextField
+                  fullWidth
+                  label="Vendor ID"
+                  value={newVendor.id}
+                  onChange={(e) => setNewVendor({ ...newVendor, id: e.target.value })}
+                />
+              </Grid>
+              <Grid size={{ xs: 8 }}>
+                <TextField
+                  fullWidth
+                  label="Company Name"
+                  value={newVendor.name}
+                  onChange={(e) => setNewVendor({ ...newVendor, name: e.target.value })}
+                />
+              </Grid>
+            </Grid>
+            
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 6 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="vendor-cat-select">Category</InputLabel>
+                  <Select
+                    labelId="vendor-cat-select"
+                    value={newVendor.category}
+                    label="Category"
+                    onChange={(e) => setNewVendor({ ...newVendor, category: e.target.value })}
+                  >
+                    <MenuItem value="Ingredients">Ingredients</MenuItem>
+                    <MenuItem value="Packaging">Packaging</MenuItem>
+                    <MenuItem value="Logistics">Logistics</MenuItem>
+                    <MenuItem value="Services">Services</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid size={{ xs: 6 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="vendor-status-select">Status</InputLabel>
+                  <Select
+                    labelId="vendor-status-select"
+                    value={newVendor.status}
+                    label="Status"
+                    onChange={(e) => setNewVendor({ ...newVendor, status: e.target.value })}
+                  >
+                    <MenuItem value="active">Active</MenuItem>
+                    <MenuItem value="preferred">Preferred</MenuItem>
+                    <MenuItem value="conditional">Conditional</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            <TextField
+              fullWidth
+              label="Contact Details (Email / Phone)"
+              value={newVendor.contact}
+              onChange={(e) => setNewVendor({ ...newVendor, contact: e.target.value })}
+            />
+
+            <Box>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                Vendor Rating ({newVendor.rating} stars)
+              </Typography>
+              <Rating
+                value={newVendor.rating}
+                precision={0.5}
+                onChange={(_, val) => setNewVendor({ ...newVendor, rating: val || 4.5 })}
+              />
+            </Box>
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 3 }}>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button variant="contained" onClick={handleSaveVendor}>Save Vendor</Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   )
 }

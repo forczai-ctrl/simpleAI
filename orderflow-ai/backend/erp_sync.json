@@ -1,0 +1,194 @@
+[
+  {
+    "timestamp": "2026-07-06T10:44:39.575680",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 576.0, \"tax\": 47.52, \"total\": 623.52, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}, {\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 8, \"unit_price\": 36.0, \"amount\": 288.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T10:44:39.570445",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}, {\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 8, \"unit_price\": 36.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 576.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:53:12.849116",
+    "status": "failed",
+    "po_number": "PO-8002",
+    "customer_name": "Summit Distributors",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-8002\", \"po_number\": \"PO-8002\", \"customer_name\": \"Summit Distributors\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 507.0, \"tax\": 41.83, \"total\": 548.83, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 12, \"unit_price\": 36.0, \"amount\": 432.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:53:12.843408",
+    "status": "failed",
+    "po_number": "PO-8002",
+    "customer_name": "Summit Distributors",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Summit Distributors\", \"po_number\": \"PO-8002\", \"items\": [{\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 12, \"unit_price\": 36.0, \"line_total\": 432.0}], \"delivery_date\": \"2026-08-01\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"CA\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 432.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:52:11.822591",
+    "status": "synced",
+    "po_number": "PO-5001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-5001\", \"po_number\": \"PO-5001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 480.0, \"tax\": 39.6, \"total\": 519.6, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 10, \"unit_price\": 48.0, \"amount\": 480.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:52:11.818188",
+    "status": "synced",
+    "po_number": "PO-5001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-5001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 10, \"unit_price\": 48.0, \"line_total\": 480.0}], \"delivery_date\": \"2026-07-15\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 480.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:52:04.862077",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 576.0, \"tax\": 47.52, \"total\": 623.52, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}, {\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 8, \"unit_price\": 36.0, \"amount\": 288.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:52:04.855835",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}, {\"sku\": \"SKU-TEA-24\", \"description\": \"Product SKU-TEA-24\", \"quantity\": 8, \"unit_price\": 36.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 576.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:31:52.737915",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:31:52.733873",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:22:20.005064",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:22:20.002348",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-06T08:21:57.502047",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-06\", \"due_date\": \"2026-08-05\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}], \"billing_type\": \"one_time\", \"disputed\": false}"
+  },
+  {
+    "timestamp": "2026-07-06T08:21:57.499586",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-03T12:05:28.945615",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-03\", \"due_date\": \"2026-08-02\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}]}"
+  },
+  {
+    "timestamp": "2026-07-03T12:05:28.940926",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-03T11:30:07.082888",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-03\", \"due_date\": \"2026-08-02\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}]}"
+  },
+  {
+    "timestamp": "2026-07-03T11:30:07.079205",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-03T11:25:46.528551",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-03\", \"due_date\": \"2026-08-02\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}]}"
+  },
+  {
+    "timestamp": "2026-07-03T11:25:46.522821",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-03T11:24:08.266804",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-03\", \"due_date\": \"2026-08-02\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}]}"
+  },
+  {
+    "timestamp": "2026-07-03T11:24:08.263291",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  },
+  {
+    "timestamp": "2026-07-03T11:23:50.117329",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "invoice",
+    "payload": "{\"invoice_no\": \"INV-2001\", \"po_number\": \"PO-2001\", \"customer_name\": \"Northstar Market\", \"invoice_date\": \"2026-07-03\", \"due_date\": \"2026-08-02\", \"subtotal\": 288.0, \"tax\": 23.76, \"total\": 311.76, \"status\": \"draft\", \"lines\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"amount\": 288.0}]}"
+  },
+  {
+    "timestamp": "2026-07-03T11:23:50.112996",
+    "status": "synced",
+    "po_number": "PO-2001",
+    "customer_name": "Northstar Market",
+    "type": "order",
+    "payload": "{\"customer_name\": \"Northstar Market\", \"po_number\": \"PO-2001\", \"items\": [{\"sku\": \"SKU-COFFEE-12\", \"description\": \"Product SKU-COFFEE-12\", \"quantity\": 6, \"unit_price\": 48.0, \"line_total\": 288.0}], \"delivery_date\": \"2026-07-05\", \"payment_terms\": \"NET 30\", \"channel\": \"email\", \"ship_to_region\": \"TX\", \"customer_tier\": \"gold\", \"credit_limit\": 25000.0, \"current_balance\": 4200.0, \"status\": \"extracted\", \"total_amount\": 288.0}"
+  }
+]

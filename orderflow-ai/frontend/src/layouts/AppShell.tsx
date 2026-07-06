@@ -11,6 +11,8 @@ import BusinessRoundedIcon from '@mui/icons-material/BusinessRounded'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded'
 import ShoppingBagRoundedIcon from '@mui/icons-material/ShoppingBagRounded'
+import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded'
+import TerminalRoundedIcon from '@mui/icons-material/TerminalRounded'
 import { AppBar, Avatar, Box, Button, Divider, Drawer, Stack, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material'
 import type { ReactNode } from 'react'
 
@@ -27,6 +29,8 @@ export type PageKey =
   | 'reports' 
   | 'exceptions' 
   | 'auth'
+  | 'customer_portal'
+  | 'erp_integration'
 
 type NavigationItem = {
   key: PageKey
@@ -37,6 +41,7 @@ type NavigationItem = {
 const navigation: NavigationItem[] = [
   { key: 'dashboard', label: 'Dashboard', icon: <DashboardRoundedIcon /> },
   { key: 'orders', label: 'Orders', icon: <ShoppingBagRoundedIcon /> },
+  { key: 'customer_portal', label: 'Customer Portal', icon: <DevicesRoundedIcon /> },
   { key: 'validation', label: 'Validation', icon: <FactCheckRoundedIcon /> },
   { key: 'fulfillment', label: 'Fulfillment', icon: <EventAvailableRoundedIcon /> },
   { key: 'inventory', label: 'Inventory', icon: <Inventory2RoundedIcon /> },
@@ -44,6 +49,7 @@ const navigation: NavigationItem[] = [
   { key: 'invoices', label: 'Invoices', icon: <ReceiptLongRoundedIcon /> },
   { key: 'payments', label: 'Payments', icon: <PaymentsRoundedIcon /> },
   { key: 'collections', label: 'Collections', icon: <RequestQuoteRoundedIcon /> },
+  { key: 'erp_integration', label: 'Integrations Hub', icon: <TerminalRoundedIcon /> },
   { key: 'reports', label: 'Reports', icon: <TimelineRoundedIcon /> },
   { key: 'exceptions', label: 'Exceptions', icon: <WarningRoundedIcon /> },
   { key: 'auth', label: 'Authentication', icon: <ShieldRoundedIcon /> },

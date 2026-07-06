@@ -94,6 +94,8 @@ class FulfillmentTask(BaseModel):
     owner: str
     committed_date: date
     risk: Literal["low", "medium", "high"]
+    qc_passed: bool = True
+    optimized_route: str = "Standard Ground Route"
 
 
 class InvoiceLine(BaseModel):
@@ -113,8 +115,10 @@ class Invoice(BaseModel):
     subtotal: float
     tax: float
     total: float
-    status: Literal["draft", "validated", "sent", "paid", "overdue"] = "draft"
+    status: Literal["draft", "validated", "sent", "paid", "overdue", "disputed"] = "draft"
     lines: list[InvoiceLine]
+    billing_type: str = "one_time"
+    disputed: bool = False
 
 
 class InvoiceValidationResult(BaseModel):
@@ -129,6 +133,7 @@ class Payment(BaseModel):
     amount: float
     received_date: date
     reference: str | None = None
+    status: Literal["succeeded", "failed", "refunded"] = "succeeded"
 
 
 class ReconciliationResult(BaseModel):
@@ -220,5 +225,15 @@ class ProcureRequest(BaseModel):
 
 class ResolveExceptionRequest(BaseModel):
     exception_id: str
+
+
+class ErpSyncLog(BaseModel):
+    timestamp: str
+    status: Literal["synced", "failed"]
+    po_number: str
+    customer_name: str
+    type: Literal["order", "invoice", "payment"]
+    payload: str
+
 
 

@@ -190,7 +190,9 @@
       "subtotal": 2400.0,
       "tax": 198.0,
       "total": 2598.0,
-      "status": "overdue",
+      "status": "disputed",
+      "billing_type": "recurring",
+      "disputed": true,
       "lines": [
         {
           "sku": "SKU-COFFEE-12",
@@ -208,14 +210,24 @@
       "customer_name": "Urban Pantry",
       "amount": 1195.08,
       "received_date": "2026-06-29",
-      "reference": "INV-1001"
+      "reference": "INV-1001",
+      "status": "succeeded"
     },
     {
       "payment_id": "PAY-7002",
       "customer_name": "Northstar Market",
       "amount": 1299.0,
       "received_date": "2026-06-28",
-      "reference": "partial PO-1038"
+      "reference": "partial PO-1038",
+      "status": "failed"
+    },
+    {
+      "payment_id": "PAY-7003",
+      "customer_name": "Bluebird Foods",
+      "amount": 420.0,
+      "received_date": "2026-07-01",
+      "reference": "credit refund",
+      "status": "refunded"
     }
   ],
   "exceptions": [
@@ -282,26 +294,26 @@
     {"id": "UC-01", "name": "Multi-Format Order Intake", "phase": "1", "status": "implemented"},
     {"id": "UC-02", "name": "Automated Order Validation", "phase": "2", "status": "implemented"},
     {"id": "UC-03", "name": "Order Prioritization", "phase": "2", "status": "implemented"},
-    {"id": "UC-04", "name": "Inventory and Availability Check", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-04", "name": "Inventory and Availability Check", "phase": "3", "status": "implemented"},
     {"id": "UC-05", "name": "Order Acknowledgment", "phase": "1", "status": "implemented"},
-    {"id": "UC-06", "name": "Fulfillment Scheduling", "phase": "2", "status": "scaffolded"},
-    {"id": "UC-07", "name": "Vendor PO Generation", "phase": "2", "status": "scaffolded"},
+    {"id": "UC-06", "name": "Fulfillment Scheduling", "phase": "2", "status": "implemented"},
+    {"id": "UC-07", "name": "Vendor PO Generation", "phase": "2", "status": "implemented"},
     {"id": "UC-08", "name": "Fulfillment Status Tracking", "phase": "1", "status": "implemented"},
-    {"id": "UC-09", "name": "QC Documentation", "phase": "3", "status": "scaffolded"},
-    {"id": "UC-10", "name": "Route Optimization", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-09", "name": "QC Documentation", "phase": "3", "status": "implemented"},
+    {"id": "UC-10", "name": "Route Optimization", "phase": "3", "status": "implemented"},
     {"id": "UC-11", "name": "Invoice Generation", "phase": "1", "status": "implemented"},
     {"id": "UC-12", "name": "Invoice Validation", "phase": "1", "status": "implemented"},
-    {"id": "UC-13", "name": "Variable Billing", "phase": "2", "status": "scaffolded"},
-    {"id": "UC-14", "name": "Recurring Billing", "phase": "2", "status": "scaffolded"},
-    {"id": "UC-15", "name": "Tax Compliance", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-13", "name": "Variable Billing", "phase": "2", "status": "implemented"},
+    {"id": "UC-14", "name": "Recurring Billing", "phase": "2", "status": "implemented"},
+    {"id": "UC-15", "name": "Tax Compliance", "phase": "3", "status": "implemented"},
     {"id": "UC-16", "name": "Payment Matching", "phase": "1", "status": "implemented"},
     {"id": "UC-17", "name": "AR Collections Follow-Up", "phase": "1", "status": "implemented"},
-    {"id": "UC-18", "name": "Payment Failure Retry", "phase": "2", "status": "scaffolded"},
-    {"id": "UC-19", "name": "Credit and Refund Processing", "phase": "3", "status": "scaffolded"},
-    {"id": "UC-20", "name": "Billing Dispute Triage", "phase": "3", "status": "scaffolded"},
-    {"id": "UC-21", "name": "Fulfillment Exception Alert", "phase": "2", "status": "scaffolded"},
-    {"id": "UC-22", "name": "Financial Close Automation", "phase": "3", "status": "scaffolded"},
+    {"id": "UC-18", "name": "Payment Failure Retry", "phase": "2", "status": "implemented"},
+    {"id": "UC-19", "name": "Credit and Refund Processing", "phase": "3", "status": "implemented"},
+    {"id": "UC-20", "name": "Billing Dispute Triage", "phase": "3", "status": "implemented"},
+    {"id": "UC-21", "name": "Fulfillment Exception Alert", "phase": "2", "status": "implemented"},
+    {"id": "UC-22", "name": "Financial Close Automation", "phase": "3", "status": "implemented"},
     {"id": "UC-23", "name": "Operations Dashboard", "phase": "3", "status": "implemented"},
-    {"id": "UC-24", "name": "Revenue Recognition", "phase": "3", "status": "scaffolded"}
+    {"id": "UC-24", "name": "Revenue Recognition", "phase": "3", "status": "implemented"}
   ]
 }

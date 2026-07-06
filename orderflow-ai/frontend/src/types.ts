@@ -63,6 +63,8 @@ export interface FulfillmentTask {
   owner: string
   committed_date: string
   risk: 'low' | 'medium' | 'high'
+  qc_passed?: boolean
+  optimized_route?: string
 }
 
 export interface InvoiceLine {
@@ -82,8 +84,10 @@ export interface Invoice {
   subtotal: number
   tax: number
   total: number
-  status: 'draft' | 'validated' | 'sent' | 'paid' | 'overdue'
+  status: 'draft' | 'validated' | 'sent' | 'paid' | 'overdue' | 'disputed'
   lines: InvoiceLine[]
+  billing_type: string
+  disputed: boolean
 }
 
 export interface InvoiceValidationResult {
@@ -98,6 +102,7 @@ export interface Payment {
   amount: number
   received_date: string
   reference?: string
+  status: 'succeeded' | 'failed' | 'refunded'
 }
 
 export interface ReconciliationResult {
@@ -181,5 +186,15 @@ export interface ExceptionItem {
   order_id?: string
   invoice_id?: string
 }
+
+export interface ErpSyncLog {
+  timestamp: string
+  status: 'synced' | 'failed'
+  po_number: string
+  customer_name: string
+  type: 'order' | 'invoice' | 'payment'
+  payload: string
+}
+
 
 
